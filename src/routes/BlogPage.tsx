@@ -1,0 +1,48 @@
+import BlogContainer from "../components/BlogContainer";
+import { Button, Title, Text, SimpleGrid, Center } from "@mantine/core";
+import { pb } from "../lib/pocketbase";
+import { IconCirclePlus } from "@tabler/icons";
+import NewBlogModal from "../components/modals/NewBlogModal";
+import { useEffect, useState } from "react";
+import BlogCard from "../components/BlogCard";
+
+function BlogPage() {
+	const [newModalOpen, setNewModalOpen] = useState(false);
+	const [blogs, setBlogs] = useState<any>();
+
+	async function fetchBlogs() {
+		const req = await pb.collection("posts").getFullList(100, { sort: "-created", expand: "user" });
+		setBlogs(req);
+	}
+
+	useEffect(() => {
+		fetchBlogs();
+	}, []);
+
+	return (
+		<BlogContainer title="Blog" description={(
+			<>
+				<Text color="dimmed">Opinions on recent events at Woking High School. All blog posts are written by me.</Text>
+				{pb.authStore.model
+				? <Button mt="sm" leftIcon={<IconCirclePlus size={17} stroke={2.2} />} onClick={() => setNewModalOpen(true)}>New blog post</Button>
+				: <></>
+			}
+			</>
+		)}>
+			<NewBlogModal opened={newModalOpen} onClose={() => setNewModalOpen(false)} />
+			
+			<Title order={2} mb="lg">Recent blog posts</Title>
+			<Center>
+				<SimpleGrid cols={2} breakpoints={[
+					{ maxWidth: "md", cols: 1 }
+				]}>
+					{blogs?.map((blog: any) => (
+						<BlogCard blog={blog} />
+					))}
+				</SimpleGrid>
+			</Center>
+		</BlogContainer>
+	);
+}
+
+export default BlogPage;
