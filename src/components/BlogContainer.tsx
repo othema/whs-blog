@@ -6,7 +6,7 @@ export interface IBlogContainerProps {
 	title: string;
 	description?: ReactNode;
 	children: ReactNode;
-	contentSize: MantineNumberSize | null;
+	contentSize?: MantineNumberSize | null;
 }
 
 function BlogContainer({ title, description = "", children, contentSize = null }: IBlogContainerProps) {

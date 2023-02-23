@@ -21,7 +21,7 @@ function BlogPage() {
 	}, []);
 
 	return (
-		<BlogContainer title="Blog" description={(
+		<BlogContainer title="Blog" contentSize="md" description={(
 			<>
 				<Text color="dimmed">Opinions on recent events at Woking High School. All blog posts are written by me.</Text>
 				{pb.authStore.model
@@ -37,7 +37,8 @@ function BlogPage() {
 				? <Loading />
 				: (
 					<Center>
-						<SimpleGrid cols={2} breakpoints={[
+						<SimpleGrid cols={3} breakpoints={[
+							{ maxWidth: "lg", cols: 2 },
 							{ maxWidth: "md", cols: 1 }
 						]}>
 							{blogs?.map((blog: any) => (
