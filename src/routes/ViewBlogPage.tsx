@@ -99,15 +99,14 @@ function ViewBlogPage() {
 	useEffect(() => {
 		editor?.commands.setContent(data?.content);
 	}, [editor, data])
-	console.log(data);
 	return (
     <BlogContainer
       title={blogTitle}
 		description={<>
-			<Skeleton visible={data === undefined} mt="xs" width={200}>
+			<Skeleton visible={!data} width={200}>
 				<Text color="dimmed"><IconUser size={14} /> {`By ${data?.expand?.user?.name}`}</Text>
 			</Skeleton>
-			<Skeleton mt="xs" visible={data === undefined} width={180}>
+			<Skeleton mt={!data ? 7 : 0} visible={!data} width={180}>
 				<Text color="dimmed"><IconClock size={14} /> {relativeDate(data?.created)}</Text>
 			</Skeleton>
 

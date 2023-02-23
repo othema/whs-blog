@@ -10,7 +10,9 @@ export interface IBlogContainerProps {
 function BlogContainer({ title, description = "", children }: IBlogContainerProps) {
 	const theme = useMantineTheme();
 	const width = theme.breakpoints.sm;
-	console.log(title);
+	
+	const titleRef = useRef(null);
+
 	return (
     <>
       <div
@@ -28,8 +30,8 @@ function BlogContainer({ title, description = "", children }: IBlogContainerProp
         }}
       >
 				<Container style={{ width: width }}>
-					<Skeleton visible={title === ""} height={32} mb="lg">
-						<Title order={1} size={45}>
+					<Skeleton visible={title === ""} height={title ? "auto" : 45} mb={title ? 3 : 12}>
+						<Title order={1} size={45} style={{ lineHeight: 1 }} ref={titleRef}>
 							{title}
 						</Title>
 					</Skeleton>
@@ -45,7 +47,7 @@ function BlogContainer({ title, description = "", children }: IBlogContainerProp
 					position: "relative"
         }}
       >
-        <Container size={width} p={0}>
+        <Container size={width}>
           {children}
         </Container>
       </div>
