@@ -1,5 +1,5 @@
 import { Image, Text, Stack } from "@mantine/core";
-import logo from "../assets/img/logo.jpeg";
+import logo from "../assets/img/logo-new.jpg";
 
 export default function Logo() {
   return (
@@ -8,9 +8,9 @@ export default function Logo() {
       <Text size={26} weight="bolder" sx={{ lineHeight: 1 }} align="center">
         Woking High
         <br />
-        School
+        School Blog
       </Text>
-      <Text ta="center">An unofficial blog site made by students, for students.</Text>
+      <Text ta="center">An unofficial blog site made by a student, for students.</Text>
     </Stack>
   );
 }
