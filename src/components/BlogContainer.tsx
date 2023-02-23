@@ -26,7 +26,7 @@ function BlogContainer({ title, description = "", children, titleSize = 45 }: IB
             "inset rgba(0, 0, 0, 0.05) 0px 1px 0px, inset rgba(0, 0, 0, 0.05) 0px 0px 23px -7px, inset rgba(0, 0, 0, 0.04) 0px 0px 12px -7px",
         }}
       >
-				<Container style={{ width: width, display: "flex", alignItems: "center", height: "100%" }}>
+				<Container style={{ width: width, display: "flex", alignItems: "center", height: "100%", flexDirection: "column" }}>
 					<Skeleton visible={title === ""} height={32}>
 						<Title order={1} size={titleSize}>
 							{title}
