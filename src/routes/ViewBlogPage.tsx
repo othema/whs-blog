@@ -103,24 +103,23 @@ function ViewBlogPage() {
 	return (
     <BlogContainer
       title={blogTitle}
-      titleSize={30}
-			description={<>
-				<Skeleton visible={data === undefined} mt="xs" width={200}>
-					<Text color="dimmed"><IconUser size={14} /> {`By ${data?.expand?.user?.name}`}</Text>
-				</Skeleton>
-				<Skeleton mt="xs" visible={data === undefined} width={180}>
-					<Text color="dimmed"><IconClock size={14} /> {relativeDate(data?.created)}</Text>
-				</Skeleton>
+		description={<>
+			<Skeleton visible={data === undefined} mt="xs" width={200}>
+				<Text color="dimmed"><IconUser size={14} /> {`By ${data?.expand?.user?.name}`}</Text>
+			</Skeleton>
+			<Skeleton mt="xs" visible={data === undefined} width={180}>
+				<Text color="dimmed"><IconClock size={14} /> {relativeDate(data?.created)}</Text>
+			</Skeleton>
 
-				{pb.authStore.model
-					? (
-						<form style={{ maxWidth: 400, marginTop: theme.spacing.md }}>
-							<TextInput label="Blog title" placeholder="Your new blog title" value={blogTitle} onChange={(e) => setBlogTitle(e.currentTarget.value)} />
-							<TextInput label="Cover image URL" placeholder="https://images.com/your-image" value={coverImage} onChange={(e) => setCoverImage(e.currentTarget.value)} />
-						</form>
-					) : <></>
-				}
-			</>}
+			{pb.authStore.model
+				? (
+					<form style={{ maxWidth: 400, marginTop: theme.spacing.md }}>
+						<TextInput label="Blog title" placeholder="Your new blog title" value={blogTitle} onChange={(e) => setBlogTitle(e.currentTarget.value)} />
+						<TextInput label="Cover image URL" placeholder="https://images.com/your-image" value={coverImage} onChange={(e) => setCoverImage(e.currentTarget.value)} />
+					</form>
+				) : <></>
+			}
+		</>}
 		>
 			{!data
 				? <Loading />

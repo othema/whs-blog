@@ -5,10 +5,9 @@ export interface IBlogContainerProps {
 	title: string;
 	description?: ReactNode;
 	children: ReactNode;
-	titleSize?: MantineNumberSize;
 }
 
-function BlogContainer({ title, description = "", children, titleSize = 45 }: IBlogContainerProps) {
+function BlogContainer({ title, description = "", children }: IBlogContainerProps) {
 	const theme = useMantineTheme();
 	const width = theme.breakpoints.sm;
 	console.log(title);
@@ -30,7 +29,7 @@ function BlogContainer({ title, description = "", children, titleSize = 45 }: IB
       >
 				<Container style={{ width: width }}>
 					<Skeleton visible={title === ""} height={32} mb="lg">
-						<Title order={1} size={titleSize}>
+						<Title order={1} size={45}>
 							{title}
 						</Title>
 					</Skeleton>
