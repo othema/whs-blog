@@ -12,6 +12,7 @@ function ShellHeader({ opened, setOpened }: { opened: boolean, setOpened: (opene
 				<Burger
 					opened={opened}
 					onClick={() => setOpened(!opened)}
+					color="white"
 				/>
 			</MediaQuery>
 			<Group position="right" px="xs" style={{ height: "100%" }}>
