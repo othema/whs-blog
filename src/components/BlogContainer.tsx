@@ -29,7 +29,7 @@ function BlogContainer({ title, description = "", children, titleSize = 45 }: IB
         }}
       >
 				<Container style={{ width: width }}>
-					<Skeleton visible={title === ""} height={32} mb="xl">
+					<Skeleton visible={title === ""} height={32} mb="lg">
 						<Title order={1} size={titleSize}>
 							{title}
 						</Title>
