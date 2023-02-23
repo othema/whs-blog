@@ -17,7 +17,8 @@ const useStyles = createStyles((theme) => ({
   },
 
   footer: {
-    marginTop: theme.spacing.md,
+		position: "absolute",
+		bottom: theme.spacing.md
   },
 }));
 
