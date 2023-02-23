@@ -1,17 +1,21 @@
 import { Container, Title, Divider, Text, useMantineTheme, MantineNumberSize, Stack, Skeleton } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { ReactNode, useRef } from "react";
 
 export interface IBlogContainerProps {
 	title: string;
 	description?: ReactNode;
 	children: ReactNode;
+	contentSize: MantineNumberSize | null;
 }
 
-function BlogContainer({ title, description = "", children }: IBlogContainerProps) {
+function BlogContainer({ title, description = "", children, contentSize = null }: IBlogContainerProps) {
 	const theme = useMantineTheme();
-	const width = theme.breakpoints.sm;
+	const mobileScreen = useMediaQuery(`(min-width: ${theme.breakpoints.sm}px)`);
 	
 	const titleRef = useRef(null);
+	if (!contentSize)
+		contentSize = theme.breakpoints.sm;
 
 	return (
     <>
@@ -21,15 +25,14 @@ function BlogContainer({ title, description = "", children }: IBlogContainerProp
           display: "flex",
           alignItems: "center",
           position: "fixed",
-          left: 0,
+          left: mobileScreen ? 300 : 0,
           right: 0,
-					marginLeft: 300,
 					backgroundColor: theme.colors.gray[1],
           boxShadow:
             "inset rgba(0, 0, 0, 0.05) 0px 1px 0px, inset rgba(0, 0, 0, 0.05) 0px 0px 23px -7px, inset rgba(0, 0, 0, 0.04) 0px 0px 12px -7px",
         }}
-      >
-				<Container style={{ width: width }}>
+			>
+				<Container style={{ width: theme.breakpoints.sm }}>
 					<Skeleton visible={title === ""} height={title ? "auto" : 45} mb={title ? 3 : 12}>
 						<Title order={1} size={45} style={{ lineHeight: 1 }} ref={titleRef}>
 							{title}
@@ -47,7 +50,7 @@ function BlogContainer({ title, description = "", children }: IBlogContainerProp
 					position: "relative"
         }}
       >
-        <Container size={width}>
+        <Container size={contentSize}>
           {children}
         </Container>
       </div>
