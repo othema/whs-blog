@@ -5,6 +5,7 @@ import { IconCirclePlus } from "@tabler/icons";
 import NewBlogModal from "../components/modals/NewBlogModal";
 import { useEffect, useState } from "react";
 import BlogCard from "../components/BlogCard";
+import Loading from "../components/Loading";
 
 function BlogPage() {
 	const [newModalOpen, setNewModalOpen] = useState(false);
@@ -32,15 +33,19 @@ function BlogPage() {
 			<NewBlogModal opened={newModalOpen} onClose={() => setNewModalOpen(false)} />
 			
 			<Title order={2} mb="lg">Recent blog posts</Title>
-			<Center>
-				<SimpleGrid cols={2} breakpoints={[
-					{ maxWidth: "md", cols: 1 }
-				]}>
-					{blogs?.map((blog: any) => (
-						<BlogCard blog={blog} />
-					))}
-				</SimpleGrid>
-			</Center>
+			{!blogs
+				? <Loading />
+				: (
+					<Center>
+						<SimpleGrid cols={2} breakpoints={[
+							{ maxWidth: "md", cols: 1 }
+						]}>
+							{blogs?.map((blog: any) => (
+								<BlogCard blog={blog} />
+							))}
+						</SimpleGrid>
+					</Center>
+			)}
 		</BlogContainer>
 	);
 }

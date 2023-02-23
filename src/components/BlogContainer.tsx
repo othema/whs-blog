@@ -1,4 +1,4 @@
-import { Container, Title, Divider, Text, useMantineTheme, MantineNumberSize, Stack } from "@mantine/core";
+import { Container, Title, Divider, Text, useMantineTheme, MantineNumberSize, Stack, Skeleton } from "@mantine/core";
 import { ReactNode, useRef } from "react";
 
 export interface IBlogContainerProps {
@@ -11,6 +11,7 @@ export interface IBlogContainerProps {
 function BlogContainer({ title, description = "", children, titleSize = 45 }: IBlogContainerProps) {
 	const theme = useMantineTheme();
 	const width = theme.breakpoints.sm;
+	console.log(title);
 	return (
     <>
       <div
@@ -27,10 +28,12 @@ function BlogContainer({ title, description = "", children, titleSize = 45 }: IB
             "inset rgba(0, 0, 0, 0.05) 0px 1px 0px, inset rgba(0, 0, 0, 0.05) 0px 0px 23px -7px, inset rgba(0, 0, 0, 0.04) 0px 0px 12px -7px",
         }}
       >
-        <Container style={{ width: width }}>
-          <Title order={1} size={titleSize}>
-            {title}
-          </Title>
+				<Container style={{ width: width }}>
+					<Skeleton visible={title === ""} height={32}>
+						<Title order={1} size={titleSize}>
+							{title}
+						</Title>
+					</Skeleton>
           {description}
         </Container>
       </div>

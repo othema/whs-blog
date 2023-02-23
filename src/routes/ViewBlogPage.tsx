@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { pb } from "../lib/pocketbase";
 import BlogContainer from "../components/BlogContainer";
 import relativeDate from "../lib/relativeDate";
-import { Text, TextInput, useMantineTheme } from "@mantine/core";
+import { Skeleton, Text, TextInput, useMantineTheme } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { IconCheck, IconClock, IconPhoto, IconUser } from "@tabler/icons";
 
@@ -99,14 +99,18 @@ function ViewBlogPage() {
 	useEffect(() => {
 		editor?.commands.setContent(data?.content);
 	}, [editor, data])
-
+	console.log(data);
 	return (
     <BlogContainer
       title={blogTitle}
       titleSize={30}
 			description={<>
-				<Text color="dimmed"><IconUser size={14} /> {`By ${data?.expand?.user?.name}`}</Text>
-				<Text color="dimmed"><IconClock size={14} /> {relativeDate(data?.created)}</Text>
+				<Skeleton visible={data === undefined} mt="xs" width={200}>
+					<Text color="dimmed"><IconUser size={14} /> {`By ${data?.expand?.user?.name}`}</Text>
+				</Skeleton>
+				<Skeleton mt="xs" visible={data === undefined} width={180}>
+					<Text color="dimmed"><IconClock size={14} /> {relativeDate(data?.created)}</Text>
+				</Skeleton>
 
 				{pb.authStore.model
 					? (
