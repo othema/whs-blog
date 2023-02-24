@@ -8,14 +8,15 @@ function ShellHeader({ opened, setOpened }: { opened: boolean, setOpened: (opene
 	const theme = useMantineTheme();
 	return (
 		<Header height={HEADER_HEIGHT} style={{ backgroundColor: theme.fn.darken(theme.colors.blue[9], 0.5) }}>
-			<MediaQuery largerThan="sm" styles={{ display: "none" }}>
+			
+			<Group position="apart" px="xs" style={{ height: "100%" }}>
+				<MediaQuery largerThan="sm" styles={{ display: "none" }}>
 				<Burger
 					opened={opened}
 					onClick={() => setOpened(!opened)}
 					color="white"
 				/>
 			</MediaQuery>
-			<Group position="right" px="xs" style={{ height: "100%" }}>
 				{pb.authStore.model
 					? <Button compact variant="white" onClick={logOut} >Admin logout</Button>
 					: <Button compact variant="white" component={Link} to="/login">Admin login</Button>

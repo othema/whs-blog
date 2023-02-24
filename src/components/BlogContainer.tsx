@@ -12,7 +12,7 @@ export interface IBlogContainerProps {
 function BlogContainer({ title, description = "", children, contentSize = null }: IBlogContainerProps) {
 	const theme = useMantineTheme();
 	const mobileScreen = useMediaQuery(`(min-width: ${theme.breakpoints.sm}px)`);
-	const titleContainer = useRef(null);
+	const titleContainer = useRef<HTMLDivElement>(null);
 	
 	const titleRef = useRef(null);
 	if (!contentSize)
