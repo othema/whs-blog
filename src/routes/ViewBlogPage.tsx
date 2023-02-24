@@ -8,7 +8,7 @@ import { hideNotification, showNotification, updateNotification } from "@mantine
 import { IconCheck, IconClock, IconPhoto, IconUser } from "@tabler/icons";
 
 import { RichTextEditor, Link as TiptapLink, useRichTextEditorContext } from "@mantine/tiptap";
-import { useEditor } from "@tiptap/react";
+import { BubbleMenu, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Superscript from "@tiptap/extension-superscript";
 import Subscript from "@tiptap/extension-subscript";
@@ -183,6 +183,15 @@ function ViewBlogPage() {
 										<InsertImageControl />
 										<SaveBlogControl callback={saveBlogPost} />
 									</RichTextEditor.Toolbar>
+									{editor && (
+										<BubbleMenu editor={editor}>
+											<RichTextEditor.ControlsGroup>
+												<RichTextEditor.Bold />
+												<RichTextEditor.Italic />
+												<RichTextEditor.Link />
+											</RichTextEditor.ControlsGroup>
+										</BubbleMenu>
+									)}
 									<RichTextEditor.Content />
 								</>
 							) : <RichTextEditor.Content />

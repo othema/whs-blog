@@ -1,5 +1,6 @@
 import { Card, Image, Text, Group, Avatar, createStyles } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { avatarUrl } from "../lib/pocketbase";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -54,7 +55,7 @@ function BlogCard({ className, blog }: BlogCardProps &
       </Text>
 
       <Group spacing={0} className={classes.footer}>
-				<Avatar src={blog.expand.user.avatar} size={24} radius="xl" mr="xs" />
+				<Avatar src={avatarUrl(blog.expand.user)} size={24} radius="xl" mr="xs" />
 				<Text size="sm" inline>
 					{blog.expand.user.name}
 				</Text>

@@ -15,3 +15,7 @@ export function logOut() {
 	pb.authStore.clear();
 	window.location.reload();
 }
+
+export function avatarUrl(user: any, small: boolean = true) {
+	return PB_URL + `/api/files/users/${user.id}/${user.avatar}` + (small ? "?thumb=25x25" : "");
+}
