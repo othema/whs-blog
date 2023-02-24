@@ -23,7 +23,7 @@ function BlogPage() {
 	return (
 		<BlogContainer title="Blog" contentSize="md" description={(
 			<>
-				<Text color="dimmed">Opinions on recent events at Woking High School. All blog posts are written by me.</Text>
+				<Text color="dimmed">Opinions on recent events at Woking High School. Speak to me if you want to become a verified blogger.</Text>
 				{pb.authStore.model
 				? <Button mt="sm" leftIcon={<IconCirclePlus size={17} stroke={2.2} />} onClick={() => setNewModalOpen(true)}>New blog post</Button>
 				: <></>
