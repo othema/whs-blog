@@ -12,6 +12,7 @@ export interface IBlogContainerProps {
 function BlogContainer({ title, description = "", children, contentSize = null }: IBlogContainerProps) {
 	const theme = useMantineTheme();
 	const mobileScreen = useMediaQuery(`(min-width: ${theme.breakpoints.sm}px)`);
+	const titleContainer = useRef(null);
 	
 	const titleRef = useRef(null);
 	if (!contentSize)
@@ -19,9 +20,10 @@ function BlogContainer({ title, description = "", children, contentSize = null }
 
 	return (
     <>
-      <div
+			<div
+				ref={titleContainer}
         style={{
-          height: 300,
+					minHeight: 300,
           display: "flex",
           alignItems: "center",
           position: "fixed",
@@ -32,7 +34,7 @@ function BlogContainer({ title, description = "", children, contentSize = null }
             "inset rgba(0, 0, 0, 0.05) 0px 1px 0px, inset rgba(0, 0, 0, 0.05) 0px 0px 23px -7px, inset rgba(0, 0, 0, 0.04) 0px 0px 12px -7px",
         }}
 			>
-				<Container style={{ width: theme.breakpoints.sm }}>
+				<Container style={{ width: theme.breakpoints.sm }} py="xl">
 					<Skeleton visible={title === ""} height={title ? "auto" : 45} mb={title ? 3 : 12}>
 						<Title order={1} size={45} style={{ lineHeight: 1 }} ref={titleRef}>
 							{title}
@@ -44,13 +46,13 @@ function BlogContainer({ title, description = "", children, contentSize = null }
       <div
         style={{
           width: "100%",
-          marginTop: 300,
+          marginTop: titleContainer?.current?.offsetHeight,
           paddingTop: theme.spacing.xl,
 					backgroundColor: "white",
 					position: "relative"
         }}
       >
-        <Container size={contentSize}>
+        <Container size={contentSize} p={0}>
           {children}
         </Container>
       </div>

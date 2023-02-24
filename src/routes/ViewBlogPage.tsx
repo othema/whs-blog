@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { pb } from "../lib/pocketbase";
 import BlogContainer from "../components/BlogContainer";
 import relativeDate from "../lib/relativeDate";
-import { Skeleton, Text, TextInput, useMantineTheme } from "@mantine/core";
-import { showNotification } from "@mantine/notifications";
+import { Button, Skeleton, Switch, Text, TextInput, useMantineTheme } from "@mantine/core";
+import { hideNotification, showNotification, updateNotification } from "@mantine/notifications";
 import { IconCheck, IconClock, IconPhoto, IconUser } from "@tabler/icons";
 
 import { RichTextEditor, Link as TiptapLink, useRichTextEditorContext } from "@mantine/tiptap";
@@ -18,29 +18,14 @@ import Image from "@tiptap/extension-image";
 import { HEADER_HEIGHT } from "../components/shell/ShellHeader";
 import Loading from "../components/Loading";
 
-function SaveBlogControl({ blogTitle, blogCover }: { blogTitle: string, blogCover: string }) {
+function SaveBlogControl({ callback }: { callback: () => void }) {
 	const { editor } = useRichTextEditorContext();
 	const theme = useMantineTheme();
 	const { blog } = useParams();
 
-	async function saveBlogPost() {
-		if (!blog) return;
-		await pb.collection("posts").update(blog, {
-			content: editor.getHTML(),
-			title: blogTitle,
-			cover: blogCover
-		});
-		showNotification({
-			title: "Saved!",
-			message: "Your blog post was saved.",
-			color: "green",
-			icon: <IconCheck />
-		});
-	}
-
 	return (
 		<RichTextEditor.Control
-			onClick={saveBlogPost}
+			onClick={callback}
 			aria-label="Save blog post"
 			title="Save blog post"
 			color="green"
@@ -78,27 +63,56 @@ function ViewBlogPage() {
 
 	const [blogTitle, setBlogTitle] = useState("");
 	const [coverImage, setCoverImage] = useState("");
+	const [isPublic, setPublic] = useState(false);
 
 	const editor = useEditor({
     extensions: [StarterKit, TiptapLink, Superscript, Subscript, Underline, Highlight, Image],
     content: "",
-    editable: pb.authStore.model !== null,
+		editable: pb.authStore.model !== null,
 	});
+
+	async function saveBlogPost() {
+		if (!blog || !data) return;
+		showNotification({
+			title: "Saving",
+			message: "Your blog post is being saved",
+			loading: true,
+			id: "load-save",
+			autoClose: false
+		});
+		await pb.collection("posts").update(blog, {
+			content: editor?.getHTML(),
+			title: blogTitle,
+			cover: coverImage,
+			public: isPublic
+		});
+		updateNotification({
+			id: "load-save",
+			title: "Saved!",
+			message: "Your blog post was saved.",
+			icon: <IconCheck />,
+			loading: false,
+			color: "green",
+			autoClose: 5000
+		});
+	}
 	
 	useEffect(() => {
 		(async () => {
 			if (!blog) return;
-			const req = await pb.collection("posts").getOne(blog, { expand: "user" });
+			const req = await pb.collection("posts").getOne(blog, { expand: "user", $autoCancel: false });
 
 			setData(req);
 			setBlogTitle(req.title);
 			setCoverImage(req.cover);
+			setPublic(req.public)
 		})();
 	}, [blog]);
 
 	useEffect(() => {
 		editor?.commands.setContent(data?.content);
 	}, [editor, data])
+
 	return (
     <BlogContainer
       title={blogTitle}
@@ -115,6 +129,8 @@ function ViewBlogPage() {
 						<form style={{ maxWidth: 400, marginTop: theme.spacing.md }}>
 							<TextInput label="Blog title" placeholder="Your new blog title" value={blogTitle} onChange={(e) => setBlogTitle(e.currentTarget.value)} />
 							<TextInput label="Cover image URL" placeholder="https://images.com/your-image" value={coverImage} onChange={(e) => setCoverImage(e.currentTarget.value)} />
+							<Switch label="Public" mt="xs" checked={isPublic} onChange={(e) => setPublic(e.currentTarget.checked)} />
+							<Button mt="sm" onClick={saveBlogPost}>Save</Button>
 						</form>
 					) : <></>
 				}
@@ -165,7 +181,7 @@ function ViewBlogPage() {
 										</RichTextEditor.ControlsGroup>
 										
 										<InsertImageControl />
-										<SaveBlogControl blogTitle={blogTitle} blogCover={coverImage} />
+										<SaveBlogControl callback={saveBlogPost} />
 									</RichTextEditor.Toolbar>
 									<RichTextEditor.Content />
 								</>
