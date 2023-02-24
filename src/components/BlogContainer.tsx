@@ -52,7 +52,7 @@ function BlogContainer({ title, description = "", children, contentSize = null }
 					position: "relative"
         }}
       >
-        <Container size={contentSize} p={0}>
+        <Container size={contentSize}>
           {children}
         </Container>
       </div>
