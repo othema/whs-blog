@@ -27,6 +27,7 @@ function Layout() {
 					style={{ backgroundColor: "white" }}
 					navbarOffsetBreakpoint="sm"
 					padding={0}
+          mb="xl"
         >
           <Outlet />
         </AppShell>
