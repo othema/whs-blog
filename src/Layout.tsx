@@ -24,10 +24,9 @@ function Layout() {
         <AppShell
 					navbar={<ShellNavbar opened={navOpened} setOpened={setNavOpened} />}
 					header={<ShellHeader opened={navOpened} setOpened={setNavOpened} />}
-					style={{ backgroundColor: "white" }}
+					style={{ backgroundColor: "white", marginBottom: 50 }}
 					navbarOffsetBreakpoint="sm"
 					padding={0}
-          mb="xl"
         >
           <Outlet />
         </AppShell>
