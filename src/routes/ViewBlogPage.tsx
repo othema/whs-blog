@@ -68,7 +68,7 @@ function ViewBlogPage() {
 	const editor = useEditor({
     extensions: [StarterKit, TiptapLink, Superscript, Subscript, Underline, Highlight, Image],
     content: "",
-		editable: pb.authStore.model !== null,
+		editable: pb.authStore.model !== null || pb.authstore.model === data.user,
 	});
 
 	async function saveBlogPost() {
@@ -124,7 +124,7 @@ function ViewBlogPage() {
 					<Text color="dimmed"><IconClock size={14} /> {relativeDate(data?.created)}</Text>
 				</Skeleton>
 
-				{pb.authStore.model
+				{pb.authStore.model === data.user
 					? (
 						<form style={{ maxWidth: 400, marginTop: theme.spacing.md }}>
 							<TextInput label="Blog title" placeholder="Your new blog title" value={blogTitle} onChange={(e) => setBlogTitle(e.currentTarget.value)} />
@@ -142,10 +142,10 @@ function ViewBlogPage() {
 					<RichTextEditor
 						editor={editor}
 						mt={-10}
-						style={{ border: pb.authStore.model ? "" : "none" }}
+						style={{ border: pb.authStore.model === data.user ? "" : "none" }}
 						sx={{ img: { borderRadius: theme.radius.sm } }}
 					>
-						{pb.authStore.model
+						{pb.authStore.model === data.user
 							? (
 								<>
 									<RichTextEditor.Toolbar sticky stickyOffset={HEADER_HEIGHT}>
