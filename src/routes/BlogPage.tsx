@@ -12,7 +12,7 @@ function BlogPage() {
 	const [blogs, setBlogs] = useState<any>();
 
 	async function fetchBlogs() {
-		const req = await pb.collection("posts").getFullList(100, { sort: "-created", expand: "user" });
+		const req = await pb.collection("posts").getFullList(100, { sort: "-updated", expand: "user" });
 		setBlogs(req);
 	}
 
