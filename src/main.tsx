@@ -12,7 +12,6 @@ import ViewBlogPage from './routes/ViewBlogPage';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>
     <Routes>
-      <Analytics />
       <Route path="/" element={<Layout />}>
         <Route index element={<Navigate to="/blog" replace />} />
         <Route path="blog">
