@@ -23,6 +23,7 @@
     "@tiptap/extension-underline": "^2.0.0-beta.218",
     "@tiptap/react": "^2.0.0-beta.218",
     "@tiptap/starter-kit": "^2.0.0-beta.218",
+    "@vercel/analytics": "^0.1.11",
     "pocketbase": "^0.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
