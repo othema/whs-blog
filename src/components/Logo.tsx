@@ -1,5 +1,5 @@
 import { Image, Text, Stack } from "@mantine/core";
-import logo from "../assets/img/logo-new.jpg";
+import logo from "../assets/img/new-logo.png";
 
 export default function Logo() {
   return (
