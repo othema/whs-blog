@@ -20,7 +20,7 @@ function ShellNavbar({ opened, setOpened }: { opened: boolean, setOpened: (opene
 				onClick={() => setOpened(false)}
         active={location.pathname.startsWith("/blog")}
       />
-      <NavLink
+      {/* <NavLink
         label="Study content"
         description="View all revision material in one place"
         icon={<IconNotebook size={16} />}
@@ -35,7 +35,7 @@ function ShellNavbar({ opened, setOpened }: { opened: boolean, setOpened: (opene
 				icon={<IconShare size={16} />}
 				onClick={() => setOpened(false)}
         rightSection={<IconChevronRight size={12} stroke={1.5} />}
-      ></NavLink>
+      ></NavLink> */}
     </Navbar>
   );
 }
